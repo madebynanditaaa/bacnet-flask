@@ -3,6 +3,6 @@ gunicorn
 torch==2.9.0
 torchvision==0.24.0
 fastai==2.7.15
-fastcore==1.7.8
+fastcore==1.5.29
 pillow==10.4.0
 numpy<2.0
