@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BacNet: AI-Powered Bacterial Classification</title>
+    <!-- Font: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href=".\static\style.css"/>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- App Script -->
+    <script defer src=".\static\script.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="title">🦠 BacNet: AI-Powered Bacterial Classification</h1>
+            <p class="subtitle">Upload a bacterial image and classify it using EfficientNet-B0, ResNet50, or Soft Voting Ensemble.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="grid">
+            <!-- Left Column: Inputs -->
+            <aside class="card inputs">
+                <h2 class="card-title">Upload & Select Model</h2>
+
+                <div class="form-group">
+                    <label for="imageInput" class="label">Choose Image</label>
+                    <input type="file" id="imageInput" accept="image/*" />
+                    <p class="hint">Supported: JPG, PNG. Clear, single colony images give best results.</p>
+                </div>
+
+                <div class="form-group">
+                    <span class="label">Model Selection</span>
+                    <div class="model-options">
+                        <label class="radio">
+                            <input type="radio" name="model" value="EfficientNet-B0" checked />
+                            <span>EfficientNet-B0</span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="model" value="ResNet50" />
+                            <span>ResNet50</span>
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="model" value="Soft Voting (Ensemble)" />
+                            <span>Soft Voting (Ensemble)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button id="classifyBtn" class="btn btn-primary">Classify</button>
+
+                <div class="preview">
+                    <div class="preview-box">
+                        <img id="previewImg" alt="Image preview" />
+                        <div id="previewPlaceholder" class="preview-placeholder">Image preview will appear here</div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Column: Results -->
+            <section class="results">
+                <div class="card result-card">
+                    <h2 class="card-title">Prediction</h2>
+                    <div id="loading" class="loading" hidden>
+                        <span class="spinner" aria-hidden="true"></span>
+                        <span>Analyzing image…</span>
+                    </div>
+                    <div id="result" class="result">
+                        <div class="result-row">
+                            <span class="result-label">Predicted Class:</span>
+                            <span id="predictedClass" class="result-value muted">—</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Confidence:</span>
+                            <span id="confidence" class="result-value muted">—</span>
+                        </div>
+                        <div id="errorBox" class="error" hidden></div>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <h2 class="card-title">Class Probabilities</h2>
+                    <div class="chart-wrapper">
+                        <canvas id="probChart" aria-label="Class probabilities bar chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card history-card">
+                    <h2 class="card-title">Prediction History</h2>
+                    <div class="table-wrapper">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Model Used</th>
+                                    <th>Predicted Class</th>
+                                    <th>Confidence (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyBody">
+                                <!-- Rows appended dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <footer class="footer container">
+        <p class="footnote">Built with ❤️ for microbiology labs — BacNet Frontend</p>
+    </footer>
+</body>
+<!-- Notes for developers:
+ - Adjust colors and fonts in style.css under CSS variables and base styles
+ - Backend endpoint assumed at /predict
+ - Chart.js loaded via CDN; see script.js for renderChart()
+-->
+</html>
+
+

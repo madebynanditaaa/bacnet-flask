@@ -1,0 +1,12 @@
+{
+  "class_names": [
+    "Clostridium_perfringens",
+    "Enterococcus_faecalis",
+    "Enterococcus_faecium",
+    "Escherichia_coli",
+    "Listeria_monocytogenes",
+    "Proteus",
+    "Pseudomonas_aeruginosa",
+    "Staphylococcus_aureus"
+  ]
+}
