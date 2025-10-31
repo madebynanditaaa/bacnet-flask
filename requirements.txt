@@ -1,10 +1,8 @@
-flask
-torch
-torchvision
-pillow
-numpy<2.0
+flask==3.0.3
 gunicorn
-torch
-torchvision
-fastcore
-fastdownload
+torch==2.3.1
+torchvision==0.18.1
+pillow==10.4.0
+numpy<2.0
+fastcore==1.7.8
+fastdownload==0.0.7
