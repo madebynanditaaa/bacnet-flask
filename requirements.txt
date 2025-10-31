@@ -1,9 +1,7 @@
-flask==3.0.3
-gunicorn
-torch==2.9.0+cpu
-torchvision==0.15.2+cpu
-fastai==2.7.14
-fastcore==1.6.5
-fastdownload
+flask
+fastai
+torch
+torchvision
 pillow
 numpy<2.0
+gunicorn
