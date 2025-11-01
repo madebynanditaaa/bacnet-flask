@@ -1,16 +1,29 @@
 from fastai.vision.all import *
 from flask import Flask, request, render_template, jsonify
 import torch
+import pathlib
+
+# 🔧 Fix WindowsPath incompatibility for Linux environments
+pathlib.WindowsPath = pathlib.PosixPath
 
 app = Flask(__name__)
 
-# Load models once at startup
+# ==============================
+# 🚀 Model Loading
+# ==============================
 print("🚀 Loading FastAI models...")
-learn_eff = load_learner("models/bacteria_classifier_efficientnet_b0.pkl")
-learn_res = load_learner("models/bacteria_classifier_resnet50.pkl")
-print("✅ Models loaded successfully.")
 
-# Global history
+try:
+    learn_eff = load_learner("models/bacteria_classifier_efficientnet_b0_linux.pkl", cpu=True)
+    learn_res = load_learner("models/bacteria_classifier_resnet50_linux.pkl", cpu=True)
+    print("✅ Models loaded successfully.")
+except Exception as e:
+    print("❌ Error loading models:", e)
+    raise e
+
+# ==============================
+# 🌐 Routes
+# ==============================
 prediction_history = []
 
 @app.route("/")
@@ -26,7 +39,9 @@ def predict():
     model_choice = request.form.get("model", "Soft Voting (Ensemble)")
     img = PILImage.create(file.stream)
 
-    # Predict with selected model
+    # ==============================
+    # 🔮 Model Inference
+    # ==============================
     if model_choice == "EfficientNet-B0":
         label, idx, probs = learn_eff.predict(img)
     elif model_choice == "ResNet50":
@@ -44,7 +59,9 @@ def predict():
     conf = float(probs[idx] * 100)
     probs_dict = {learn_eff.dls.vocab[i]: float(p * 100) for i, p in enumerate(probs)}
 
-    # Append to history
+    # ==============================
+    # 🧠 Save History
+    # ==============================
     prediction_history.append({
         "model": model_choice,
         "class": label,
@@ -58,5 +75,8 @@ def predict():
         "history": prediction_history[-20:]
     })
 
+# ==============================
+# 🚀 Entry Point
+# ==============================
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, debug=True)
