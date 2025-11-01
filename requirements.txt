@@ -5,4 +5,5 @@ torchvision==0.15.2
 fastai==2.7.15
 fastcore==1.5.29
 pillow==10.4.0
+fasttransform==0.0.2
 numpy<2.0
