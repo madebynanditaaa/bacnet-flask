@@ -7,3 +7,4 @@ fastcore==1.5.29
 pillow==10.4.0
 fasttransform==0.0.2
 numpy<2.0
+uvicorn
